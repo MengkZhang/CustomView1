@@ -103,8 +103,18 @@ public class ToggleView extends View {
          */
 
         if (isTouchMode) {//根据用户滑动的位置currentX绘制滑块
-            float newLeft = (int) currentX;
+//            float newLeft = (int) currentX;
+            // 让滑块向左移动自身一半大小的位置
+            float newLeft = currentX - slideButtonBitmap.getWidth() / 2.0f;
+            int maxLeft = switchBackgroupBitmap.getWidth() - slideButtonBitmap.getWidth();
+            // 限定滑块范围
+            if(newLeft < 0){
+                newLeft = 0; // 左边范围
+            }else if (newLeft > maxLeft) {
+                newLeft = maxLeft; // 右边范围
+            }
             canvas.drawBitmap(slideButtonBitmap, newLeft, 0, paint);
+
         } else {          //根据开关状态的Boolean值绘制滑块
 
             if (mSwitchState) {  //开启状态 left = 背景宽度 - 滑块宽度,  top = 0
@@ -143,6 +153,17 @@ public class ToggleView extends View {
                 isTouchMode = false;//松开的时候设置为FALSE
                 printLog("event:ACTION_UP " + event.getX());
                 currentX = event.getX();
+
+                float center = switchBackgroupBitmap.getWidth() / 2.0f;
+                // 根据当前按下的位置, 和控件中心的位置进行比较.
+                boolean state = currentX > center;
+
+                //如果开关状态变化了，状态回调, 把当前状态传出去
+                if (state != mSwitchState && mOnSwitchStateUpdateListener != null) {
+                    mOnSwitchStateUpdateListener.onStateUpdate(state);
+                }
+
+                mSwitchState = state;
                 break;
             default:
                 break;
@@ -185,4 +206,19 @@ public class ToggleView extends View {
     public void setSwitchState(boolean switchState) {
         this.mSwitchState = switchState;
     }
+
+    //回调接口
+    public interface OnSwitchStateUpdateListener {
+        // 状态回调, 把当前状态传出去
+        void onStateUpdate(boolean state);
+    }
+
+    private OnSwitchStateUpdateListener mOnSwitchStateUpdateListener;
+
+    public void setOnSwitchStateUpdateListener(OnSwitchStateUpdateListener onSwitchStateUpdateListener) {
+        this.mOnSwitchStateUpdateListener = onSwitchStateUpdateListener;
+    }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.zhang.togview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.zhang.togview.widget.ToggleView;
 
@@ -22,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
         mToggleView.setSlideButtonResource(R.mipmap.slide_button);
         //需求：给mToggleView设置开关状态
         mToggleView.setSwitchState(true);
+
+        mToggleView.setOnSwitchStateUpdateListener(new ToggleView.OnSwitchStateUpdateListener() {
+            @Override
+            public void onStateUpdate(boolean state) {
+                Toast.makeText(MainActivity.this, "state = " + state, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

@@ -18,11 +18,11 @@ public class MainActivity extends AppCompatActivity {
         mToggleView = (ToggleView) findViewById(R.id.toggleView);
 
         //需求：给mToggleView设置背景
-        mToggleView.setSwitchBackgroundResource(R.mipmap.switch_background);
+//        mToggleView.setSwitchBackgroundResource(R.mipmap.switch_background);
         //需求：给mToggleView设置滑块背景
-        mToggleView.setSlideButtonResource(R.mipmap.slide_button);
+//        mToggleView.setSlideButtonResource(R.mipmap.slide_button);
         //需求：给mToggleView设置开关状态
-        mToggleView.setSwitchState(true);
+//        mToggleView.setSwitchState(true);
 
         mToggleView.setOnSwitchStateUpdateListener(new ToggleView.OnSwitchStateUpdateListener() {
             @Override

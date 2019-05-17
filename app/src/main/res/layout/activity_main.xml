@@ -8,6 +8,9 @@
 
     <com.zhang.togview.widget.ToggleView
         android:id="@+id/toggleView"
+        app:state="true"
+        app:slide_button="@mipmap/slide_button"
+        app:switch_background="@mipmap/switch_background"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

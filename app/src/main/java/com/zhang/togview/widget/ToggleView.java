@@ -58,6 +58,16 @@ public class ToggleView extends View {
     public ToggleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
+        //获取背景
+        String namespace = "http://schemas.android.com/apk/res-auto";
+        int switchBackground = attrs.getAttributeResourceValue(namespace, "switch_background", -1);
+        setSwitchBackgroundResource(switchBackground);
+
+        int slideButton = attrs.getAttributeResourceValue(namespace, "slide_button", -1);
+        setSlideButtonResource(slideButton);
+
+        boolean state = attrs.getAttributeBooleanValue(namespace, "state", false);
+        setSwitchState(state);
     }
 
     /**
